@@ -1,8 +1,8 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import isToday from "dayjs/plugin/isToday.js";
+import isYesterday from "dayjs/plugin/isYesterday.js";
 
-dayjs.extend(isToday);
+dayjs.extend(isYesterday);
 
 export const snoop = async (username) => {
   try {
@@ -19,11 +19,12 @@ export const snoop = async (username) => {
 
 const constructReport = (apiResponse, username) => {
   const todaysEvents = apiResponse
-    .filter((event) => dayjs(event.created_at).isToday())
+    .filter((event) => dayjs(event.created_at).isYesterday())
     .map((event) => event.type);
 
   if (todaysEvents.length === 0) {
-    return `${username} nic dzisiaj nie zrobił`;
+    return `${username} nic wczoraj nie zrobił
+https://tenor.com/view/kononopedia-major-p%C5%82acz-lalu%C5%9B-szkolna17-gif-15886612`;
   }
 
   const pushCount = todaysEvents.filter(
@@ -66,7 +67,7 @@ const constructReport = (apiResponse, username) => {
   ).length;
   const starred = `Ogwiazdkował ${starCount} repozytoriów ⭐`;
 
-  return `${username} zrobił dzisiaj ${todaysEvents.length} rzeczy, w tym:
+  return `${username} zrobił wczoraj ${todaysEvents.length} rzeczy, w tym:
    • ${pushed}
    • ${created}
    • ${deleted}
