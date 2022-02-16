@@ -5,7 +5,6 @@ import { Routes } from "discord-api-types/v9";
 
 const token = process.env.API_KEY;
 const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID;
 
 const commands = [
   new SlashCommandBuilder()
@@ -22,6 +21,6 @@ const commands = [
 const rest = new REST({ version: "9" }).setToken(token);
 
 rest
-  .put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+  .put(Routes.applicationCommands(clientId), { body: commands })
   .then(() => console.log("Successfully registered commands"))
   .catch(console.error);
